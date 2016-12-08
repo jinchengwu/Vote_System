@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html ng-app="Vote">
+<head>
+	<meta charset="utf-8">
+	<!-- Enable responsiveness on mobile devices-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	<title>HACS Vote System</title>
+
+
+	
+	<!-- jQuery CDN -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<!-- Angular js CDN -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.js"></script>
+	<!-- Firebase CDN -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+    <!-- XEIcon -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/xeicon/2/xeicon.min.css">
+
+	<link rel="stylesheet" href="https://cdn.rawgit.com/young-ha/webfont-archive/master/css/NotoSansCJKkr.css">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDa2q1wLaE_llGhmu9ee-MUKwVwVa2Mxlk",
+	    authDomain: "hacs-da04b.firebaseapp.com",
+	    databaseURL: "https://hacs-da04b.firebaseio.com",
+	    storageBucket: "hacs-da04b.appspot.com",
+	    messagingSenderId: "205391000706"
+	  };
+	  firebase.initializeApp(config);
+
+	  var app = angular.module("Vote", ["firebase"]);
+      app.controller("SampleCtrl", function($scope, $firebaseArray, $firebaseObject) {
+            var newUIDKey = firebase.database().ref().child('users').push().key;
+            console.log(newUIDKey);
+
+            var ref = firebase.database().ref().child('vote');
+            $scope.vote = $firebaseArray(ref);
+
+            $('#btn_agree').click(function(){
+            	$scope.vote.$add({
+            		vote : 'agree'
+            	});
+            	location.replace("finish.html");
+            })
+
+            $('#btn_disagree').click(function(){
+            	$scope.vote.$add({
+            		vote : 'disagree'
+            	});
+            	location.replace("finish.html");
+            })
+
+            
+      });
+
+
+	  $(document).ready(function(){
+
+	  })
+	</script>
+</head>
+<body ng-controller="SampleCtrl">
+
+	
+	<br>
+	<div id="contents">
+		<div style="color: white; text-align: center;">
+			<br>
+			<img src="hacs_logo.png" width="30%"><br><br>
+			<h4>한양대학교 인재모임 HACS<br>제 7대 대표 선거</h4>
+		</div>
+		<br>
+		<div class="well">
+			
+			<div class="page-header">
+				<h2>김 정아 <small>ERICA 캠퍼스<br> 재료화학공학과 16</small></h2>
+			</div>
+		    <p class="lead" style="overflow:scroll; height:400px;">
+		    	후보 출마의 변
+		    	<br>
+		    	<br>
+				안녕하세요.
+				<br>
+				저는 이번 7대 HACS 대표후보로 나오게 된 ERICA캠퍼스 재료화학공학과에 재학중인 김정아 라고 합니다.<br><br>
+				입학 전 우연히 참여하게 된 비상프로젝트를 인연으로 HACS와 대학생활을 함께하게 되었습니다. 발대식부터 성대 교류전까지 서울, 안산 두 캠퍼스가 함께한 비교적큰 행사부터 포럼과 전체회의 같은 행사까지 많은 시간을 HACS와 보낸 해였습니다. 그만큼 HACS에 애정도 많이 생기고 저의 1학년 생활에서 절대 빼놓을 수 없는 존재로 자리매김했다고 생각합니다.<br><br>
+				입학처에서분리된 이후로 소속 없이 ‘모임’으로 활동하며 여러 어려움이있는 상황에서 2016년을 잘 이끌어 가주신 나윤환대표님이 너무 수고하셨지만, 아직도 여전히 해결해 나가야 할 점이 많은 것 같습니다.<br><br>
+				저는 HACS에 남은 이러한 문제들을 해결하여 더 나은 방향으로 이끌어 나아가고자 이번 7대 대표로 출마 하였습니다.
+				<br><br>
+				먼저 HACS에남은 문제점들을 짚어보고 저의소견을 말씀 드리겠습니다.
+				<br><br>
+				현재 HACS에 남아 활동하는 8기 인원이 너무 적습니다. 따라서2017년 활동 전에 추가모집을 시행하여 신입회원을 모집할 것입니다. 새로운 회원들과 겨울방학 동안 멘토링 활동을 하여 소속감을 갖게 한 후 내년활동을 같이 이어나가겠습니다.
+				<br><br>
+				미래인재 전형의 폐지와 함께 입학처에서 분리된 이후HACS의 정체성이 불분명하여 정체성 확립에 어려움을 겪고 있습니다. 이 상황에서 멘토링, 봉사, 교류전, 학스인들의자기계발 돕기와 같은 사항들을 우리 HACS의 정체성으로 삼으려고 합니다. 이 정체성으로 HACS를 다시 홍보하고 확립시키겠습니다.
+				<br><br>
+				올해 부서가 개편되었지만 부서별 회의가 없었고, 부서별로주어진 활동도 없어서 부서의 의미가 퇴색되었다고 생각합니다. 내년에는 부서별로 행사를 나누어 배분하고, 역할분담을 학기 초에 시행하여 부서의 의미와 활동을 활성화시키겠습니다.
+				<br><br>
+				HACS 활동에 대한 의견과 비전을 학스인들 모두와 공유하는 시간을 많이 갖도록 하겠습니다.
+				<br><br>
+				서울캠퍼스에 활동인원이 매우 적은 관계로 추가모집과 홍보를 진행하여 인원을 확충하기 위해노력하겠습니다.
+				<br><br>
+				HACS의 정체성을 다시 세운 만큼, 새롭게 HACS를 홍보하는 활동을 많이 하도록 하겠습니다.
+				<br><br>
+				매 포럼과 세미나 후에 많은 학스인들이 뒷풀이에 참여하는 문화조성하겠습니다.
+				<br><br>
+				벌점, 벌금제를 도입하여 활동에 어느 정도강제성을 띄게 하겠습니다. 비록 HACS가 자율적인 단체이지만, 어떤 활동을 하는데 있어서 약간의 강제성은 필요하다고 생각하였기 때문에 부담이 가지 않는 선에서 약간의 강제성을갖고 학스인의 활동 참여율을 높이도록 노력하겠습니다.
+				<br><br>
+				 
+				저는 물론 부족한 점이 많고, 제가 회장이 되어 활동하는모습을 보시며 아쉬워 하실 수 도 있습니다. 하지만 저는 그 누구보다 열심히 할 것이고 HACS를 사랑하는 마음이 큽니다. 아낌없이 조언해주시고 격려해주시면좋겠습니다. 침체기에 빠져있는 HACS에 한줄기 빛과 같은사람이 되겠습니다.
+
+
+
+		    </p>
+
+		  
+		</div>
+		<div class="btn-group-vertical" role="group" style="text-align: center; width: 100%">
+		  <button id="btn_agree"  type="button" class="btn btn-default btn-lg">찬성 <i class="xi-check"></i></button>
+		  <button id="btn_disagree" type="button" class="btn btn-default btn-lg">반대 <i class="xi-close"></i></button>
+		</div>
+
+	</div>
+	<br>
+	
+	
+
+</body>
+</html>

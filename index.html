@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="Vote">
+<head>
+	<meta charset="utf-8">
+	<!-- Enable responsiveness on mobile devices-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	<title>HACS Vote System</title>
+
+
+	
+	<!-- jQuery CDN -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<!-- Angular js CDN -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.js"></script>
+	<!-- Firebase CDN -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+	
+	<link rel="stylesheet" href="https://cdn.rawgit.com/young-ha/webfont-archive/master/css/NotoSansCJKkr.css">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDa2q1wLaE_llGhmu9ee-MUKwVwVa2Mxlk",
+	    authDomain: "hacs-da04b.firebaseapp.com",
+	    databaseURL: "https://hacs-da04b.firebaseio.com",
+	    storageBucket: "hacs-da04b.appspot.com",
+	    messagingSenderId: "205391000706"
+	  };
+	  firebase.initializeApp(config);
+
+	  var app = angular.module("Vote", ["firebase"]);
+      app.controller("SampleCtrl", function($scope, $firebaseArray, $firebaseObject) {
+            var newUIDKey = firebase.database().ref().child('users').push().key;
+            console.log(newUIDKey);
+
+            var ref = firebase.database().ref().child('users');
+            $scope.users = $firebaseArray(ref);
+
+            $('#submit').click(function(){
+            	$scope.users.$add({
+            		number : $('input').val()
+            	})
+            })
+
+            $('#test').click(function(){
+            	console.log($scope.users);
+            	console.log($scope.users.length);
+
+            	for(var i = 0; i < $scope.users.length; i++){
+            		console.log($scope.users[i].number);
+            		$scope.users[i].isvote = false;
+        			$scope.users.$save(i);
+            	}
+            });
+
+            $('#login').click(function(){
+            	var phone = $('input').val();
+            	var tmp = false;
+            	for(var i = 0; i < $scope.users.length; i++){
+            		if($scope.users[i].number == phone){
+            			tmp = true;
+            			if($scope.users[i].isvote == true){
+            				alert('이미 투표에 참여하셨습니다.');
+            				return;
+            			}
+            			else{
+            				$scope.users[i].isvote = true;
+	            			$scope.users.$save(i);
+	            			location.replace("vote.html");
+            			}
+            			
+            		}
+            	}
+            	if(tmp == false){
+            		alert('HACS 명단에 없는 핸드폰 번호입니다. 다시 입력하시거나, 선관위장 나윤환에게 문의하세요.')	
+            	}
+            	
+
+            })
+      });
+
+
+	  $(document).ready(function(){
+
+	  })
+	</script>
+</head>
+<body ng-controller="SampleCtrl">
+
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<div id="contents">
+
+		<div id="textBox">
+			<img src="hacs_logo.png" width="30%">
+			<br>
+			<br>
+			<h3>한양대학교 인재모임 HACS<br>투표 시스템</h3>
+			<h5>자신의 핸드폰 번호를 통해서 로그인하실 수 있습니다.</h5>
+		</div>
+		<br>
+		<div class="input-group">
+		  <span class="input-group-addon" id="basic-addon3">핸드폰번호</span>
+		  <input type="tel" class="form-control" id="basic-url" aria-describedby="basic-addon3" placeholder="01000000000">
+		</div>
+		<br>
+		<button class="btn btn-default btn-lg" id="login">Login</button>
+		<br><br>
+		<h6 id="noti">모든 투표는 익명처리로 이루어집니다. 핸드폰 번호는 HACS회원 인증으로만 사용되며,
+				로그인이 정상적으로 이루어진 이후에는, 다시 접속하실 수 없습니다.
+		</h6>
+	</div>
+	
+	
+
+</body>
+</html>

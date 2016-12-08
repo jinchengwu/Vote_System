@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="Vote">
+<head>
+	<meta charset="utf-8">
+	<!-- Enable responsiveness on mobile devices-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	
+	<title>HACS Vote System</title>
+
+
+	
+	<!-- jQuery CDN -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<!-- Angular js CDN -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.js"></script>
+	<!-- Firebase CDN -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+    <!-- XEIcon -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/xeicon/2/xeicon.min.css">
+
+	<link rel="stylesheet" href="https://cdn.rawgit.com/young-ha/webfont-archive/master/css/NotoSansCJKkr.css">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDa2q1wLaE_llGhmu9ee-MUKwVwVa2Mxlk",
+	    authDomain: "hacs-da04b.firebaseapp.com",
+	    databaseURL: "https://hacs-da04b.firebaseio.com",
+	    storageBucket: "hacs-da04b.appspot.com",
+	    messagingSenderId: "205391000706"
+	  };
+	  firebase.initializeApp(config);
+
+	  var app = angular.module("Vote", ["firebase"]);
+      app.controller("SampleCtrl", function($scope, $firebaseArray, $firebaseObject) {
+            var newUIDKey = firebase.database().ref().child('users').push().key;
+            console.log(newUIDKey);
+
+            var ref = firebase.database().ref().child('vote');
+            $scope.vote = $firebaseArray(ref);
+
+            $('#close').click(function(){
+            	window.close();
+            })
+
+            $('#btn_disagree').click(function(){
+            	$scope.vote.$add({
+            		vote : 'disagree'
+            	});
+            })
+
+            
+      });
+
+
+	  $(document).ready(function(){
+
+	  })
+	</script>
+</head>
+<body ng-controller="SampleCtrl">
+
+	
+	<br>
+	<div id="contents">
+		<div style="color: white; text-align: center;">
+			<br>
+			<img src="hacs_logo.png" width="30%"><br><br>
+			<h4>한양대학교 인재모임 HACS<br>제 7대 대표 선거</h4>
+		</div>
+		<br>
+		<div class="well">
+			투표에 참여해주셔서 감사합니다.		  
+		</div>
+
+	</div>
+	<br>
+	
+	
+
+</body>
+</html>

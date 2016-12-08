@@ -1,0 +1,27 @@
+*{
+	margin: 0 auto;
+	
+}
+
+body{
+	background: #2B364B;
+}
+
+#contents{
+	width: 90%;	
+}
+
+#contents > button{
+	width: 100%;
+}
+
+#textBox{
+	color: white;
+	font-family: 'NotoSansCJKkr';
+	text-align: center;
+}
+
+#noti{
+	color: white;
+	font-family: 'NotoSansCJKkr';
+}
